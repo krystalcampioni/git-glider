@@ -1,0 +1,15 @@
+{
+  "name": "github-pr-finder",
+  "version": "1.0.0",
+  "description": "A script to find GitHub pull requests by author",
+  "main": "script.js",
+  "type": "module",
+  "scripts": {
+    "start": "node script.js"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "chalk": "^5.3.0",
+    "ora": "^8.0.1"
+  }
+}

@@ -1,4 +1,6 @@
 node_modules
+github-token.txt
+./github-token.txt
 
 # dependencies
 **/node_modules
@@ -20,3 +22,5 @@ chrome-extension/dist/
 utils/reload/*.js
 utils/reload/injections/*.js
 public/manifest.json
+
+
