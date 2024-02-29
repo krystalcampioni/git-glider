@@ -6,6 +6,7 @@ import {
   addOverlay,
   removeOverlay,
   waitFor,
+  appendTo,
 } from "@src/shared/utils";
 import { MagicButton } from "./MagicButton";
 
@@ -34,11 +35,12 @@ const createHeaderButtons = (header) => {
         if (dropdownMenu) {
           const container = document.createElement("div");
           container.className = "MagicButtonContainer";
-          dropdownMenu.appendChild(container);
 
-          ReactDOM.render(
-            <MagicButton onClick={() => handleClick(header)} />,
-            container
+          appendTo(
+            dropdownMenu,
+            <MagicButton onClick={() => handleClick(header)}>
+              Move all to current cycle
+            </MagicButton>
           );
         }
       } catch (error) {
@@ -151,8 +153,6 @@ const handleItemPicker = async (itemPickerRoot) => {
 };
 
 export function ProjectBoardHandler() {
-  if (!window.location.hostname.includes("github")) return null;
-
   useEffect(() => {
     const groupHeaders = document.querySelectorAll(
       '[data-testid^="group-header-"]'

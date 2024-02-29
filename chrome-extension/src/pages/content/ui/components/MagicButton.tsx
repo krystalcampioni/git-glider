@@ -1,4 +1,4 @@
-export function MagicButton({ onClick }) {
+export function MagicButton({ onClick, children }) {
   return (
     <button
       className="MagicButton"
@@ -7,7 +7,7 @@ export function MagicButton({ onClick }) {
         onClick();
       }}
     >
-      ✨ Move all to current cycle
+      ✨ {children}
     </button>
   );
 }

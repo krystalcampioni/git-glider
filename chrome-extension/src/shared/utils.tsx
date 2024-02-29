@@ -1,5 +1,9 @@
 import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
+import { ReactNode } from "react";
+
 import { StarLoader } from "@src/pages/content/ui/components/StarLoader";
+
 type AsyncElement = Promise<HTMLButtonElement>;
 
 export const addOverlay = () => {
@@ -24,6 +28,7 @@ export const waitFor = (findElement, timeLimit = 5000): AsyncElement => {
     const observer = new MutationObserver((mutations, observer) => {
       const element = findElement();
       if (element && !element.querySelector('[class*="LoadingSkeleton"]')) {
+        console.log("Element found", element);
         observer.disconnect();
         resolve(element);
       }
@@ -37,6 +42,7 @@ export const waitFor = (findElement, timeLimit = 5000): AsyncElement => {
     }, timeLimit);
 
     const element = findElement();
+
     if (element && !element.querySelector('[class*="LoadingSkeleton"]')) {
       clearTimeout(timeoutId);
       observer.disconnect();
@@ -56,3 +62,16 @@ export const asyncGet = async (testId: string): Promise<Element> => {
     console.error(error);
   }
 };
+
+export const appendTo = (element: HTMLElement, reactContent: ReactNode) => {
+  const ElementWrapper = document.createElement("div");
+  ElementWrapper.classList.add("MagicButtonContainer");
+  element.append(ElementWrapper);
+
+  const root = createRoot(ElementWrapper);
+
+  root.render(reactContent);
+};
+
+export const delay = (ms: number) =>
+  new Promise((resolve) => setTimeout(resolve, ms));
