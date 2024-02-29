@@ -26,3 +26,4 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 });
 
 reloadOnUpdate("pages/content/style.scss");
+reloadOnUpdate("pages/content/ui/components/StarLoader.scss");
