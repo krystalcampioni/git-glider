@@ -1,17 +1,28 @@
-import reloadOnUpdate from 'virtual:reload-on-update-in-background-script';
-import 'webextension-polyfill';
+import reloadOnUpdate from "virtual:reload-on-update-in-background-script";
+import "webextension-polyfill";
 
-reloadOnUpdate('pages/background');
+reloadOnUpdate("pages/background");
+console.log("background loaded");
 
-chrome.sidePanel
-  .setPanelBehavior({ openPanelOnActionClick: true })
-  .catch((error: any) => console.error(error));
+import disableIcon from "../../assets/img/disabled.png";
+// chrome.sidePanel
+//   .setPanelBehavior({ openPanelOnActionClick: true })
+//   .catch((error: any) => console.error(error));
 
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+  chrome.action.disable(tabId);
 
-/**
- * Extension reloading is necessary because the browser automatically caches the css.
- * If you do not use the css of the content script, please delete it.
- */
-reloadOnUpdate('pages/content/style.scss');
+  if (changeInfo.status === "complete") {
+    console.log("tab updated on github");
+    if (tab.url.includes("https://github.com")) {
+      chrome.action.enable(tabId);
 
-console.log('background loaded');
+      console.log("background loaded");
+    } else {
+      chrome.action.disable(tabId);
+      chrome.action.setIcon({ path: disableIcon, tabId });
+    }
+  }
+});
+
+reloadOnUpdate("pages/content/style.scss");

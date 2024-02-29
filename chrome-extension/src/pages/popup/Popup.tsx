@@ -36,7 +36,7 @@ const Popup = () => {
         >
           Learn React!
         </a>
-        <button
+        {/* <button
           onClick={async () => {
             await chrome.sidePanel.setOptions({
               enabled: true,
@@ -44,7 +44,7 @@ const Popup = () => {
           }}
         >
           sidepanel
-        </button>
+        </button> */}
         <button
           style={{
             backgroundColor: theme === "light" ? "#fff" : "#000",

@@ -70,6 +70,7 @@ function initReloadClient({
 
 function addHmrIntoScript(watchPath) {
   const reload = () => {
+    console.log({watchPath});
     chrome.runtime.reload();
   };
 
