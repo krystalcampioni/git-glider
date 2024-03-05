@@ -1,0 +1,77 @@
+:root {
+  --color-text-secondary: #88ffdf;
+}
+
+a {
+  color: var(--color-text-secondary);
+}
+
+.TokenInstructions {
+  .InputNote {
+    appearance: none;
+    border: none;
+    background: none;
+    font-size: small;
+    text-align: right;
+    color: var(--color-text-secondary);
+    text-align: right;
+    width: 100%;
+    padding: 0 30px;
+  }
+
+  .SlideIn {
+    transition: transform 0.3s ease;
+    position: fixed;
+    transform: translateY(100%);
+    width: 100%;
+    max-width: 500px;
+    margin-left: 50%;
+    left: -250px;
+    padding: 10px 20px;
+    line-height: 2.3;
+    border-radius: 20px 20px 0 0;
+    backdrop-filter: blur(10px);
+    bottom: 0;
+    box-shadow:
+      inset 0px 4px 6px 4px rgba(0, 0, 0, 0.1882352941),
+      0px -5px 20px 4px rgba(88, 0, 164, 0.24);
+    background: linear-gradient(
+      20deg,
+      rgba(17, 36, 43, 0.6588235294),
+      rgb(13 29 36)
+    );
+
+    @media screen and (max-width: 500px) {
+      width: 100%;
+      left: 0;
+      margin: 0;
+    }
+  }
+
+  .isOpen {
+    transform: translateY(0);
+  }
+
+  em {
+    color: white;
+    background: #00000042;
+    padding: 5px 10px;
+    border-radius: 6px;
+  }
+
+  ol {
+    margin-left: 0;
+    padding-left: 0;
+  }
+
+  li {
+    padding: 0 10px;
+    margin-left: 25px;
+  }
+
+  li::marker {
+    color: #403b7c;
+    font-weight: bold;
+    font-size: 12px;
+  }
+}

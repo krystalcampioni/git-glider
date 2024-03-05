@@ -1,44 +1,48 @@
-import React from 'react';
-import logo from '@assets/img/logo.svg';
-import '@pages/sidepanel/SidePanel.css';
-import useStorage from '@src/shared/hooks/useStorage';
-import exampleThemeStorage from '@src/shared/storages/exampleThemeStorage';
-import withSuspense from '@src/shared/hoc/withSuspense';
-import withErrorBoundary from '@src/shared/hoc/withErrorBoundary';
+import React, { useState, useEffect } from "react";
+import "@pages/sidepanel/SidePanel.scss";
+import useStorage from "@src/shared/hooks/useStorage";
+
+import withSuspense from "@src/shared/hoc/withSuspense";
+import withErrorBoundary from "@src/shared/hoc/withErrorBoundary";
+import githubStorage from "@root/src/shared/storages/githubStorage";
+import logo from "@assets/img/logo.png";
+import { TokenInstructions } from "./TokenInstructions";
 
 const SidePanel = () => {
-  const theme = useStorage(exampleThemeStorage);
+  const { token } = useStorage(githubStorage);
 
-  return (
-    <div
-      className="App"
-      style={{
-        backgroundColor: theme === 'light' ? '#fff' : '#000',
-      }}>
-      <header className="App-header" style={{ color: theme === 'light' ? '#000' : '#fff' }}>
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/pages/sidepanel/SidePanel.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{ color: theme === 'light' && '#0281dc', marginBottom: '10px' }}>
-          Learn React!
-        </a>
-        <button
-          style={{
-            backgroundColor: theme === 'light' ? '#fff' : '#000',
-            color: theme === 'light' ? '#000' : '#fff',
-          }}
-          onClick={exampleThemeStorage.toggle}>
-          Toggle theme
-        </button>
-      </header>
-    </div>
-  );
+  const handleTokenSubmit = (event) => {
+    event.preventDefault();
+    const newToken = event.target.elements.token.value;
+    githubStorage.setGliderData({ token: newToken });
+  };
+
+  if (token === null) {
+    return (
+      <div className="AppWrapper">
+        <img src={logo} className="logo" />
+        <form onSubmit={handleTokenSubmit} className="form">
+          <h1 className="title">Welcome to Git Glider</h1>
+          <p className="description">Enter your GitHub token to get started</p>
+
+          <div className="group">
+            <input name="token" type="password" required />
+            <span className="highlight"></span>
+            <span className="bar"></span>
+            <label>GitHub Token:</label>
+          </div>
+          <input className="submit" type="submit" value="Submit" />
+        </form>
+
+        <TokenInstructions />
+      </div>
+    );
+  }
+
+  return <div className="App"> hello</div>;
 };
 
-export default withErrorBoundary(withSuspense(SidePanel, <div> Loading ... </div>), <div> Error Occur </div>);
+export default withErrorBoundary(
+  withSuspense(SidePanel, <div> Loading ... </div>),
+  <div> Error Occur </div>
+);

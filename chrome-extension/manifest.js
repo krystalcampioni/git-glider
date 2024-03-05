@@ -23,17 +23,13 @@ const manifest = {
     "management",
     "tabs",
   ],
-  // side_panel: {
-  //   default_path: "src/pages/sidepanel/index.html",
-  // },
+  side_panel: {
+    default_path: "src/pages/sidepanel/index.html",
+  },
   options_page: "src/pages/options/index.html",
   background: {
     service_worker: "src/pages/background/index.js",
     type: "module",
-  },
-  action: {
-    default_popup: "src/pages/popup/index.html",
-    default_icon: "icon-34.png",
   },
   icons: {
     128: "icon-128.png",

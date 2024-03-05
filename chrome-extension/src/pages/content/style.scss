@@ -1,3 +1,9 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
 @import "./ui/components/StarLoader.scss";
 
 // CSS that can pollute global styles. Use it with caution.
@@ -31,4 +37,10 @@
         var(--color-action-list-item-default-active-border, transparent)
       );
   }
+}
+
+.AppWrapper {
+  max-width: 100%;
+  display: flex;
+  background-color: red;
 }
