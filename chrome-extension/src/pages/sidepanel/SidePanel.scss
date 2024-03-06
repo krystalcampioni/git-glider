@@ -14,19 +14,21 @@ $bg-gradient: linear-gradient(
 $bg-color: rgb(2, 0, 36);
 
 html {
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
   background: $bg-color;
   background: $bg-gradient;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: fixed;
 }
 
 .AppWrapper {
   gap: 20px;
   color: white;
   display: flex;
+  max-width: 100%;
   flex-direction: column;
-  height: 100vh;
-  width: 100%;
   padding: 30px;
   font-size: 1rem;
   max-width: 500px;

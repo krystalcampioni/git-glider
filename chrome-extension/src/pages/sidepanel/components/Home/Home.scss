@@ -1,0 +1,29 @@
+.Home {
+}
+
+.Prs {
+  word-wrap: break-word;
+  margin: 0;
+  word-wrap: break-word;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 14px;
+
+  li {
+    padding: 10px 10px;
+    line-height: 1.4;
+    background: #161b22;
+    border-bottom: 1px solid #21262d;
+
+    a {
+      margin-right: 10px;
+    }
+  }
+
+  li::marker {
+    color: #403b7c;
+    font-weight: bold;
+    font-size: 12px;
+  }
+}

@@ -1,0 +1,13 @@
+.Header.secondary {
+  display: flex;
+  height: 50px;
+  gap: 20px;
+  align-items: center;
+
+  .Logo {
+    height: auto;
+    width: auto;
+    max-width: 100%;
+    max-height: 100%;
+  }
+}

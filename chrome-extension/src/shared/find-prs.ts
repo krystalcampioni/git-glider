@@ -1,17 +1,19 @@
 import axios from "axios";
-import ora from "ora";
-import fs from "fs";
-import chalk from "chalk";
+import useStorage from "./hooks/useStorage";
+import githubStorage from "./storages/githubStorage";
 
-function colorPrint(text, color, bold) {
-  if (bold) {
-    console.log(chalk.bold[color](text));
-    return;
-  }
-  console.log(chalk[color](text));
+interface Params {
+  owner: string;
+  repo: string;
+  author: string;
+  fileExtension: string;
+  since: string;
+  accessToken: string;
+  state: "merged" | "open" | "closed" | "all";
+  page: number;
+  prs: Object[];
 }
-
-async function findPrs(
+export async function findPrs({
   owner,
   repo,
   author,
@@ -20,8 +22,8 @@ async function findPrs(
   accessToken,
   state = "all",
   page = 1,
-  prs = []
-) {
+  prs = [],
+}: Params) {
   const url = `https://api.github.com/search/issues?q=repo:${owner}/${repo}+author:${author}+is:pr+created:>=${since}&per_page=100&page=${page}`;
   const headers = {
     Accept: "application/vnd.github.v3+json",
@@ -31,7 +33,7 @@ async function findPrs(
   const response = await axios.get(url, { headers });
   let data = response.data.items; // Search results are in the items property
 
-  const spinner = ora("Loading PRs").start();
+  // const spinner = ora("Loading PRs").start();
 
   // Filter PRs according to the state
   if (state !== "all") {
@@ -67,17 +69,17 @@ async function findPrs(
 
       const waitTime = resetTime.getTime() - currentTime.getTime() + 10000; // Add 10 seconds to ensure the rate limit has reset
 
-      spinner.color = "yellow";
-      spinner.text = "Waiting for rate limit to reset";
+      // spinner.color = "yellow";
+      // spinner.text = "Waiting for rate limit to reset";
       await sleep(waitTime);
     }
   }
 
-  spinner.stop();
+  // spinner.stop();
 
   const linkHeader = response.headers.link;
   if (linkHeader && linkHeader.includes(`rel="next"`)) {
-    return findPrs(
+    return findPrs({
       owner,
       repo,
       author,
@@ -85,9 +87,9 @@ async function findPrs(
       since,
       accessToken,
       state,
-      page + 1,
-      prs
-    );
+      page: page + 1,
+      prs,
+    });
   } else {
     return prs;
   }
@@ -106,23 +108,24 @@ async function main() {
   const state = process.argv[7]; // Get state from command line arguments
 
   // Read the access token from github-token.txt
+
   const accessToken = fs.readFileSync("github-token.txt", "utf8").trim();
 
-  const prs = await findPrs(
+  const prs = await findPrs({
     owner,
     repo,
     author,
     fileExtension,
     since,
     accessToken,
-    state
-  );
+    state,
+  });
 
   for (const pr of prs) {
     console.log("----");
     console.log(pr.pull_request.merged_at);
-    colorPrint(pr.pull_request.html_url, "cyan");
-    colorPrint(pr.title, "cyanBright");
+    // colorPrint(pr.pull_request.html_url, "cyan");
+    // colorPrint(pr.title, "cyanBright");
     console.log("----");
   }
 
@@ -131,4 +134,4 @@ async function main() {
   );
 }
 
-main().catch(console.error);
+// main().catch(console.error);
