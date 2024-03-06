@@ -1,0 +1,49 @@
+.Form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.Input {
+  color-scheme: dark;
+  font-size: 15px;
+  display: block;
+  font-weight: 600;
+  margin-top: 2px;
+  background: var(--color-input-background);
+  border: none;
+  box-shadow: var(--outline);
+  border-radius: var(--border-radius);
+  padding: var(--input-padding);
+  width: 100%;
+  color: var(--color-text-secondary);
+  height: var(--input-height);
+}
+
+.InputLabel {
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.Button {
+  width: auto !important;
+  height: auto;
+  font-size: 15px;
+  display: block;
+  margin-top: 0;
+  font-weight: 600;
+  background: var(--color-input-secondary);
+  border: none;
+  box-shadow: var(--outline);
+  border-radius: var(--border-radius);
+  padding: var(--input-padding);
+  width: 100%;
+  color: var(--color-text-primary);
+  cursor: pointer;
+  display: inline-flex;
+  align-self: end;
+  height: var(--input-height);
+}

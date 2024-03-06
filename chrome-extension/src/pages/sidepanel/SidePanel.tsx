@@ -6,7 +6,7 @@ import withSuspense from "@src/shared/hoc/withSuspense";
 import withErrorBoundary from "@src/shared/hoc/withErrorBoundary";
 import githubStorage from "@root/src/shared/storages/githubStorage";
 import logo from "@assets/img/logo.png";
-import { TokenInstructions } from "./TokenInstructions";
+import { TokenInstructions, Home } from "./components";
 
 const SidePanel = () => {
   const { token } = useStorage(githubStorage);
@@ -20,7 +20,7 @@ const SidePanel = () => {
   if (token === null) {
     return (
       <div className="AppWrapper">
-        <img src={logo} className="logo" />
+        <img src={logo} className="Logo" />
         <form onSubmit={handleTokenSubmit} className="form">
           <h1 className="title">Welcome to Git Glider</h1>
           <p className="description">Enter your GitHub token to get started</p>
@@ -39,7 +39,7 @@ const SidePanel = () => {
     );
   }
 
-  return <div className="App"> hello</div>;
+  return <Home />;
 };
 
 export default withErrorBoundary(

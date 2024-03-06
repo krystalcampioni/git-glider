@@ -1,9 +1,6 @@
-:root {
-  --color-text-secondary: #88ffdf;
-}
-
 a {
   color: var(--color-text-secondary);
+  text-decoration: none;
 }
 
 .TokenInstructions {
