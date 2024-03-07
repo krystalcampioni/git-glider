@@ -1,11 +1,12 @@
 import { appendTo, prependTo } from "@root/src/shared/utils";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export function NotificationsHandler() {
+  const getGroups = () => {
+    return document.querySelectorAll(".js-notifications-group");
+  };
   const handleCheckedCount = () => {
     const groups = document.querySelectorAll(".js-notifications-group");
-
-    console.log({ groups });
 
     groups.forEach((group) => {
       const checkboxes = group.querySelectorAll(
@@ -38,6 +39,36 @@ export function NotificationsHandler() {
     }
   };
 
+  const [hasSelectedAllClosed, setHasSelectedAllClosed] = useState(false);
+
+  const selectAllClosed = () => {
+    const groups = getGroups();
+
+    groups.forEach((group) => {
+      const liElements = group.querySelectorAll("li");
+      liElements.forEach((li) => {
+        const hasGitMergeIcon = li.querySelector(".octicon-git-merge");
+        const hasIssueClosedIcon = li.querySelector(".octicon-issue-closed");
+        if (hasGitMergeIcon || hasIssueClosedIcon) {
+          const checkbox = li.querySelector(
+            'input[type="checkbox"]:not([data-git-glider-checkbox])'
+          );
+          if (checkbox) {
+            checkbox.click();
+          }
+        }
+      });
+    });
+
+    setHasSelectedAllClosed((prev) => {
+      const button = document.querySelector(
+        "[data-git-glider-select-all-closed]"
+      );
+      button.textContent = `✨ ${!prev ? "Unselect" : "Select"} all closed`;
+      return !prev;
+    });
+  };
+
   const makeCheckboxesMenuSticky = () => {
     const countSelectedText = document.querySelector(".js-count-selected-text");
 
@@ -47,7 +78,20 @@ export function NotificationsHandler() {
     selectedCheckboxesMenu.style.position = "sticky";
     selectedCheckboxesMenu.style["z-index"] = "999";
     selectedCheckboxesMenu.style["top"] = "0";
+
+    appendTo(
+      countSelectedText.parentElement.parentElement,
+      <button
+        data-git-glider-select-all-closed
+        className="btn btn-sm"
+        onClick={selectAllClosed}
+      >
+        ✨ {hasSelectedAllClosed ? "Unselect" : "Select"} all closed
+      </button>
+    );
   };
+
+  console.log({ hasSelectedAllClosed });
 
   useEffect(() => {
     makeCheckboxesMenuSticky();
