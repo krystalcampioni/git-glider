@@ -3,6 +3,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path, { resolve } from "path";
 import { getCacheInvalidationKey, getPlugins } from "./utils/vite";
+import graphqlLoader from "vite-plugin-graphql-loader";
 
 const rootDir = resolve(__dirname);
 const srcDir = resolve(rootDir, "src");
@@ -20,7 +21,7 @@ export default defineConfig({
       "@pages": pagesDir,
     },
   },
-  plugins: [...getPlugins(isDev), react()],
+  plugins: [graphqlLoader(), ...getPlugins(isDev), react()],
   publicDir: resolve(rootDir, "public"),
   build: {
     outDir: resolve(rootDir, "dist"),

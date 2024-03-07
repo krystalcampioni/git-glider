@@ -11,16 +11,15 @@ export function Home() {
 
   const [prs, setPrs] = useState([]);
 
+  const owner = "facebook";
+  const repo = "react";
+  const author = "gaearon";
+  const fileExtension = "js";
+  const since = "2021-01-01";
+  const accessToken = token;
+  const state = "ALL";
+
   const handleClick = async () => {
-    console.log("HEY");
-    const owner = "facebook";
-    const repo = "react";
-    const author = "gaearon";
-    const fileExtension = "js";
-    const since = "2021-01-01";
-    const accessToken = token;
-    const state = "merged";
-    const page = 1;
     const prs = [];
 
     const x = await findPrs({
@@ -31,42 +30,67 @@ export function Home() {
       since,
       accessToken,
       state,
-      page,
       prs,
+      cursor: null,
     });
     setPrs(x);
-    console.log(x);
   };
 
-  const getPrNumber = (url) => {
-    const urlParts = url.split("/");
-    return urlParts[urlParts.length - 1];
+  const getPrNumber = (pr) => {
+    return pr.number;
   };
 
-  const getRepoUrl = (url) => {
-    const urlParts = url.split("/");
-    return urlParts[urlParts.length - 3];
+  const getRepoUrl = () => {
+    return `${owner}/${repo}`;
+  };
+
+  const getPrFooter = (pr) => {
+    switch (pr.state) {
+      case "OPEN":
+        return (
+          <a target="_blank" href={pr.url}>
+            #{getPrNumber(pr)} was opened by {pr.author.login} on {pr.createdAt}
+          </a>
+        );
+      case "CLOSED":
+        return (
+          <a target="_blank" href={pr.url}>
+            #{getPrNumber(pr)} was closed on {pr.closedAt}
+          </a>
+        );
+      case "MERGED":
+        return (
+          <a target="_blank" href={pr.url}>
+            #{getPrNumber(pr)} was merged by {pr.mergedBy.login} on{" "}
+            {pr.mergedAt}
+          </a>
+        );
+      default:
+        return "";
+    }
   };
 
   return (
-    <div className="AppWrapper">
+    <>
       <Header />
-      <button onClick={handleClick}>HEY</button>
-      <ul className="Prs">
-        {prs.map((pr) => {
-          const url = pr?.pull_request?.html_url;
-          console.log(pr);
-          return (
-            <li>
-              <a className="repo">{getRepoUrl(url)}</a>
-              <a href={url}>#{getPrNumber(url)}</a>
-              {pr.title}
-            </li>
-          );
-        })}
-      </ul>
+      <div className="AppWrapper">
+        <button onClick={handleClick}>HEY</button>
+        <ul className="Prs">
+          {prs.map((pr) => {
+            return (
+              <li>
+                <h3 className="PrHeader">
+                  <a className="repo">{getRepoUrl()}</a>
+                  {pr.title}
+                </h3>
+                {getPrFooter(pr)}
+              </li>
+            );
+          })}
+        </ul>
 
-      <h1 className="title">What would you like to do now?</h1>
-    </div>
+        <h1 className="title">What would you like to do now?</h1>
+      </div>
+    </>
   );
 }

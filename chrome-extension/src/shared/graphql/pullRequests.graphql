@@ -1,0 +1,30 @@
+query PullRequestQuery($searchQuery: String!, $cursor: String) {
+  search(query: $searchQuery, type: ISSUE, first: 100, after: $cursor) {
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+    nodes {
+      ... on PullRequest {
+        number
+        state
+        title
+        createdAt
+        closedAt
+        mergedAt
+        url
+        author {
+          login
+        }
+        mergedBy {
+          login
+        }
+        files(first: 100) {
+          nodes {
+            path
+          }
+        }
+      }
+    }
+  }
+}

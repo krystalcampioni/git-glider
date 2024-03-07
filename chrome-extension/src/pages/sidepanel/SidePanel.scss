@@ -16,11 +16,7 @@ $bg-color: rgb(2, 0, 36);
 html {
   min-height: 100vh;
   width: 100%;
-  background: $bg-color;
-  background: $bg-gradient;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: fixed;
+  background: #000409;
 }
 
 .AppWrapper {
@@ -29,7 +25,7 @@ html {
   display: flex;
   max-width: 100%;
   flex-direction: column;
-  padding: 30px;
+  padding: 0px;
   font-size: 1rem;
   max-width: 500px;
   margin: 0 auto;

@@ -1,5 +1,12 @@
 .Home {
 }
+.PrHeader {
+  margin: 0;
+
+  .repo {
+    font-size: inherit;
+  }
+}
 
 .Prs {
   word-wrap: break-word;
@@ -9,6 +16,9 @@
   padding: 0;
   list-style: none;
   font-size: 14px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid #30363d;
 
   li {
     padding: 10px 10px;
