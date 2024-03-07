@@ -44,3 +44,20 @@
   display: flex;
   background-color: red;
 }
+
+.GitGlider-CheckboxContainer {
+  display: inline-flex;
+  margin: 0px;
+  margin-right: 5px;
+
+  input {
+    height: 15px;
+  }
+}
+
+.GitGlider-NotificationGroupTitle {
+  gap: 5px;
+  padding-left: 10px;
+  display: flex;
+  align-items: center;
+}

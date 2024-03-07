@@ -63,6 +63,20 @@ export const asyncGet = async (testId: string): Promise<Element> => {
   }
 };
 
+export const prependTo = (
+  element: HTMLElement,
+  reactContent: ReactNode,
+  wrapperClass: string = "MagicButtonContainer"
+) => {
+  const ElementWrapper = document.createElement("div");
+  ElementWrapper.classList.add(wrapperClass);
+  element.prepend(ElementWrapper);
+
+  const root = createRoot(ElementWrapper);
+
+  root.render(reactContent);
+};
+
 export const appendTo = (element: HTMLElement, reactContent: ReactNode) => {
   const ElementWrapper = document.createElement("div");
   ElementWrapper.classList.add("MagicButtonContainer");
