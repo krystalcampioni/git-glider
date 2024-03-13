@@ -22,6 +22,7 @@ const manifest = {
     "activeTab",
     "management",
     "tabs",
+    "contextMenus",
   ],
   side_panel: {
     default_path: "src/pages/sidepanel/index.html",

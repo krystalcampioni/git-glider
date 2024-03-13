@@ -29,3 +29,19 @@ console.log("background loaded");
 
 reloadOnUpdate("pages/content/style.scss");
 reloadOnUpdate("pages/content/ui/components/StarLoader.scss");
+
+// ----
+
+chrome.runtime.onInstalled.addListener(function () {
+  chrome.contextMenus.create({
+    id: "fillWithFaker",
+    title: "Fill with Faker Data",
+    contexts: ["editable"],
+  });
+});
+
+chrome.contextMenus.onClicked.addListener(function (info, tab) {
+  if (info.menuItemId === "fillWithFaker") {
+    chrome.tabs.sendMessage(tab.id, { action: "fillWithFaker" });
+  }
+});
