@@ -41,6 +41,38 @@ export function NotificationsHandler() {
 
   const [hasSelectedAllClosed, setHasSelectedAllClosed] = useState(false);
 
+  const [hasSelectedAllFromDependabot, setHasSelectedAllFromDependabot] =
+    useState(false);
+
+  const selectAllFromDependabot = () => {
+    const groups = getGroups();
+
+    groups.forEach((group) => {
+      const liElements = group.querySelectorAll("li");
+      liElements.forEach((li) => {
+        const isFromDependabot =
+          li.querySelector('a[href="/apps/dependabot"]') ||
+          li.textContent.includes("chore(deps");
+        if (isFromDependabot) {
+          const checkbox = li.querySelector(
+            'input[type="checkbox"]:not([data-git-glider-checkbox])'
+          );
+          if (checkbox) {
+            checkbox.click();
+          }
+        }
+      });
+    });
+
+    setHasSelectedAllFromDependabot((prev) => {
+      const button = document.querySelector(
+        "[data-git-glider-select-all-from-dependabot]"
+      );
+      button.textContent = `✨ ${!prev ? "Unselect" : "Select"} all from Dependabot`;
+      return !prev;
+    });
+  };
+
   const selectAllClosed = () => {
     const groups = getGroups();
 
@@ -78,6 +110,18 @@ export function NotificationsHandler() {
     selectedCheckboxesMenu.style.position = "sticky";
     selectedCheckboxesMenu.style["z-index"] = "999";
     selectedCheckboxesMenu.style["top"] = "0";
+
+    appendTo(
+      countSelectedText.parentElement.parentElement,
+      <button
+        data-git-glider-select-all-from-dependabot
+        className="btn btn-sm"
+        onClick={selectAllFromDependabot}
+      >
+        ✨ {hasSelectedAllFromDependabot ? "Unselect" : "Select"} all from
+        Dependabot
+      </button>
+    );
 
     appendTo(
       countSelectedText.parentElement.parentElement,

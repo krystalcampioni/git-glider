@@ -1,0 +1,33 @@
+.Collapsible {
+  padding: 0;
+
+  &__Header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--input-padding);
+    cursor: pointer;
+    appearance: none;
+    background: none;
+    border: none;
+    display: flex;
+    margin: 0;
+    color: var(--color-text-primary);
+    gap: 10px;
+
+    h3 {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 600;
+    }
+  }
+
+  &__Content {
+    border-top: 1px solid var(--outline-color);
+    padding: var(--card-padding);
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    background-color: var(--color-background-dark);
+    border-radius: var(--border-radius-bottom);
+  }
+}

@@ -30,9 +30,13 @@
   padding: 0;
   list-style: none;
   font-size: 14px;
-  border-radius: 6px;
+  border-radius: var(--border-radius-bottom);
   overflow: hidden;
-  border: 1px solid #30363d;
+  box-shadow: var(--outline);
+  width: calc(100% + var(--card-padding) * 2);
+  margin-left: calc(var(--card-padding) * -1);
+  margin-top: var(--card-padding);
+  margin-bottom: calc(var(--card-padding) * -1);
 
   li {
     padding: 10px 10px;

@@ -16,7 +16,7 @@ $bg-color: rgb(2, 0, 36);
 html {
   min-height: 100vh;
   width: 100%;
-  background: #0c1117;
+  background: var(--color-background-dark);
 }
 
 .AppWrapper {
@@ -72,76 +72,10 @@ html {
   }
 }
 
-// TODO Use Github design language on login page
-// ANIMATED INPUT // ============================== //
-
-//   $hl-color: #2196f3;
-//   $muted-color: mix(white, $bg-color, 70%);
-//   $trans-time: 300ms;
-//   $width: 100%;
-
-//   body {
-//     background: $bg-color;
-//   }
-
-//   .group {
-//     position: relative;
-//     margin: 45px 0;
-//     width: 100%;
-//   }
-
-//   input {
-//     background: none;
-//     color: $muted-color;
-//     font-size: 18px;
-//     padding: 10px 10px 10px 5px;
-//     display: block;
-//     width: $width;
-//     border: none;
-//     border-radius: 0;
-//     border-bottom: 1px solid $muted-color;
-//     &:focus {
-//       outline: none;
-//     }
-//     &:focus ~ label,
-//     &:valid ~ label {
-//       top: -14px;
-//       font-size: 12px;
-//       color: $hl-color;
-//     }
-//     &:focus ~ .bar:before {
-//       width: $width;
-//     }
-//   }
-
-//   input[type="password"] {
-//     letter-spacing: 0.3em;
-//   }
-
-//   label {
-//     color: $muted-color;
-//     font-size: 16px;
-//     font-weight: normal;
-//     position: absolute;
-//     pointer-events: none;
-//     left: 5px;
-//     top: 10px;
-//     transition: $trans-time ease all;
-//   }
-
-//   .bar {
-//     position: relative;
-//     display: block;
-//     width: $width;
-//     &:before {
-//       content: "";
-//       height: 2px;
-//       width: 0;
-//       bottom: 0px;
-//       position: absolute;
-//       background: $hl-color;
-//       transition: $trans-time ease all;
-//       left: 0%;
-//     }
-//   }
-// }
+.GitGlider-Card {
+  padding: 10px 10px;
+  line-height: 1.4;
+  background: #161b22;
+  box-shadow: var(--outline);
+  border-radius: var(--border-radius);
+}

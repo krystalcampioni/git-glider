@@ -13,14 +13,19 @@ code {
 
 
 :root {
+  --outline-color: #30363d;
   --color-text-primary: #fff;
   --color-text-secondary: #858d98;
   --color-input-secondary: #21262d;
   --color-input-background: #000409;
-  --outline: 0px 0px 0 1px #30363d; 
+  --outline: 0px 0px 0 1px var(--outline-color); 
   --border-radius: 6px;
   --input-padding: 8px 12px;
+  --card-padding: 20px;
   --input-height: 35px;
   --color-success: #238636;
   --color-success-border: #3d924b;
+  --color-background-dark: #0c1117;
+  --border-radius-bottom: 0 0 var(--border-radius) var(--border-radius);
+  --border-radius-top: var(--border-radius) var(--border-radius) 0 0;
 }

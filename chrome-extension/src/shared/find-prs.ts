@@ -24,7 +24,18 @@ export async function findPrs({
   page = 1,
   prs = [],
 }: Params) {
-  const url = `https://api.github.com/search/issues?q=repo:${owner}/${repo}+author:${author}+is:pr+created:>=${since}&per_page=100&page=${page}`;
+  let url = `https://api.github.com/search/issues?q=repo:${owner}/${repo}+is:pr`;
+
+  if (author) {
+    url += `+author:${author}`;
+  }
+
+  if (since) {
+    url += `+created:>=${since}`;
+  }
+
+  url += `&per_page=100&page=${page}`;
+
   const headers = {
     Accept: "application/vnd.github.v3+json",
     Authorization: `token ${accessToken}`,

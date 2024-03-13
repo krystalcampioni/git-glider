@@ -5,7 +5,7 @@ import githubStorage from "@root/src/shared/storages/githubStorage";
 
 import "./PrSearch.scss";
 import SearchForm from "./SearchForm";
-import { PrOpenIcon, PrMergedIcon, PrClosedIcon } from "../../PrIcons";
+import { PrOpenIcon, PrMergedIcon, PrClosedIcon } from "../../Icons";
 
 const PrHeader = ({ href, title, icon: Icon, children }) => (
   <h3 className="PrHeader">
@@ -109,11 +109,13 @@ export function PrSearch() {
   return (
     <>
       <SearchForm onSubmit={handleSubmit} />
-      <ul className="Prs">
-        {prs.map((pr) => {
-          return <li>{getPrMarkup(pr)}</li>;
-        })}
-      </ul>
+      {prs.length > 0 && (
+        <ul className="Prs">
+          {prs.map((pr) => {
+            return <li>{getPrMarkup(pr)}</li>;
+          })}
+        </ul>
+      )}
     </>
   );
 }
