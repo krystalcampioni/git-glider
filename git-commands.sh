@@ -208,6 +208,41 @@ popStash() {
     git stash pop "stash^{/$stash_name}"
 }
 
+branchDiff() {
+  # Show some info if `--help` is provided - i.e 'branchDiff --help'
+  if [ "$1" = "--help" ]; then
+    echo
+    colorPrint brightCyan "Usage: " -n
+    colorPrint brightWhite "branchDiff <branch_a> [branch_b] [--quick]"
+    colorPrint cyan "Shows the differences between <branch_a> and <branch_b>."
+    colorPrint cyan "<branch_b> is optional. When not provided, it defaults to the current branch."
+    colorPrint cyan "Use the --quick flag for a quick view of the differences."
+    echo
+    return
+  fi
+
+  branchA="$1"
+  branchB="$2"
+  currentBranch=$(git branch --show-current)
+  quickView=false
+
+  # Check if quick view was requested
+  if [ "$2" = "--quick" ] || [ "$3" = "--quick" ]; then
+    quickView=true
+    # if branchB is not provided, default to the current branch
+    if [ "$2" = "--quick" ]; then
+      branchB="$currentBranch"
+    fi
+  elif [ -z "$branchB" ]; then
+    branchB="$currentBranch"
+  fi
+
+  if [ "$quickView" = true ]; then
+    git diff "$branchA..$branchB" --stat --summary
+  else
+    git diff "$branchA..$branchB"
+  fi
+}
 # Function to print usage
 fileFromStash() {
     usage() {
@@ -325,6 +360,13 @@ gitGlider() {
     colorPrint brightCyan "fileFromStash" -n
     colorPrint cyan "fileFromStash <filename> <optional-stash-index>"
     colorPrint cyan "Finds the path to the file name provided and applies the changes to the working area. If no stash index is provided it will default to the last stash"
+    echo
+    colorPrint brightCyan "branchDiff:"
+    colorPrint cyan "Shows the differences between two branches."
+    colorPrint cyan "Usage: branchDiff <branch_a> [branch_b] [--quick]"
+    colorPrint cyan "<branch_b> is optional. When not provided, it defaults to the current branch."
+    colorPrint cyan "Use the --quick flag for a quick view of the differences."
+    echo
   else
     echo
     colorPrint brightRed "Invalid argument. Use git-glider or git-glider --help."
